@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import UpdatingWnft from '../../data/UpdatingWnft';
 import { getImageSize } from '../../utils/image';
 
-const IMAGE_WIDTH = 322
+const IMAGE_WIDTH = 318
 const IMAGE_HEIGHT_MIN = 200
 
 const EditPlacement = (props) => {
@@ -74,7 +74,7 @@ const EditPlacement = (props) => {
       </Modal.Header>
       <Modal.Body>
           <div>
-      <label htmlFor="placement-img-url" className="form-label">Image</label>
+      <label htmlFor="placement-img-url" className="form-label">Image (width 318px)</label>
       <div className="input-group">
 
       <div className='d-flex flex-column'>
