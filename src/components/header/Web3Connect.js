@@ -96,6 +96,7 @@ const Web3Connect = () => {
         const web3Provider = new ethers.providers.Web3Provider( instance );
         
         const [account] = await web3Provider.listAccounts();
+
         if (account){
             setWalletAddress(account);
             setWeb3ProviderInfo({provider: web3Provider, wallet: account, active: true})

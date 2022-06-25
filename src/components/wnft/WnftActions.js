@@ -18,16 +18,16 @@ const getContract = (provider) => {
 export const getProvider = async () => {
     let isWallet = false;
     let provider;
-    if (window.ethereum){
-      provider = new ethers.providers.Web3Provider( window.ethereum )
-      const { chainId } = await provider.getNetwork();
-      if (chainId!==getChainId(CONTRACT_NETWORK)){
-        provider = undefined;
-      }else{
-        isWallet = true;
-      }
+    // if (window.ethereum){
+    //   provider = new ethers.providers.Web3Provider( window.ethereum )
+    //   const { chainId } = await provider.getNetwork();
+    //   if (chainId!==getChainId(CONTRACT_NETWORK)){
+    //     provider = undefined;
+    //   }else{
+    //     isWallet = true;
+    //   }
       
-    }
+    // }
     if (provider===undefined){
       if (USE_WEBSOCKETS){
         provider = new ethers.providers.WebSocketProvider( getWebSocketRpcUrl(CONTRACT_NETWORK) );
