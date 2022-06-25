@@ -3,13 +3,13 @@ import "./css/alpino.css"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./css/main.css";
-
 import Svgs from "./components/svgs/Svgs"
 import Header from "./components/header/Header";
 import { Route, Routes, Outlet } from "react-router-dom";
 import MintWnftKeyphrase from "./components/pages/search/MintWnftKeyphrase";
 import KeyphraseView from "./components/pages/keyphrase/KeyphraseView";
 import useIpfsFactory from "./components/hooks/useIpfsFactory"
+import AfterMinting from "./components/pages/congratulations/AfterMinting";
 
 
 
@@ -20,7 +20,6 @@ const MainLayout = () => {
 
 
 function App() {
-
 
   const { ipfs, ipfsInitError, isIpfsReady } = useIpfsFactory()
 
@@ -36,9 +35,13 @@ function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index path="/"  element={<MintWnftKeyphrase ipfs={ipfs} />} />
           <Route path="mint"  element={<MintWnftKeyphrase ipfs={ipfs} />} />
-          <Route path="keyphrases" element={<KeyphraseView ipfs={ipfs} isIpfsReady={isIpfsReady} />}>
+          <Route path="keyphrases" >
             <Route path=":keyphraseId" element={<KeyphraseView ipfs={ipfs} isIpfsReady={isIpfsReady} />} />
           </Route>
+          <Route path="congrats">
+            <Route path=":keyphraseId" element={<AfterMinting ipfs={ipfs} isIpfsReady={isIpfsReady} />} />
+          </Route>
+         
         </Route>
 
 

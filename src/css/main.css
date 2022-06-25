@@ -648,6 +648,13 @@ button.close {
     color: #fff;
   }
 
+.congrats-headline{
+    color: rgba(0, 227, 187, 1);
+}
+
+.font-weight-bold {
+    font-weight: 700!important;
+}
 
   pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
 .string { color: green; }

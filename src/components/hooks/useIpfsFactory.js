@@ -35,9 +35,7 @@ export default function useIpfsFactory () {
   }, [])
 
   async function startIpfs () {
-    if (ipfs) {
-      console.log('IPFS already started')
-    }else{
+    if (!ipfs) {
       try {
         ipfs = create(IPFS_NODE)
         //console.log('before isOnline');
