@@ -3,8 +3,10 @@ import Modal from 'react-bootstrap/Modal';
 import ImageUploading from "react-images-uploading";
 import { useState, useEffect } from 'react';
 import UpdatingWnft from '../../data/UpdatingWnft';
+import { getImageSize } from '../../utils/image';
 
-
+const IMAGE_WIDTH = 322
+const IMAGE_HEIGHT_MIN = 200
 
 const EditPlacement = (props) => {
 
@@ -35,11 +37,21 @@ const EditPlacement = (props) => {
 
     const maxNumber = 1;
     const onImageChange = (imageList, addUpdateIndex) => {
+        console.log(imageList)
     // data for submit
         if (imageList.length){
-            setPlacementImage(imageList[0].data_url);
+            getImageSize(imageList[addUpdateIndex].file).then((resp) => {
+              if (resp.width == IMAGE_WIDTH && resp.height >= IMAGE_HEIGHT_MIN){
+                setPlacementImage(imageList[addUpdateIndex].data_url);
+                console.log(imageList[addUpdateIndex])
+                setImages(imageList);
+              }else{
+                console.error('Size is not valid', resp)
+              }
+            })
+            
         }
-        setImages(imageList);
+        
     };
 
     const onSave = () => {
@@ -69,7 +81,7 @@ const EditPlacement = (props) => {
       {placementImage && (<img src={placementImage} className="WNFT-placement-preview-img border" />)}
       {!placementImage && ("No image")}
       <ImageUploading
-          multiple
+          multiple={false}
           value={images}
           onChange={onImageChange}
           maxNumber={maxNumber}
@@ -78,9 +90,7 @@ const EditPlacement = (props) => {
           {({
             imageList,
             onImageUpload,
-            onImageRemoveAll,
             onImageUpdate,
-            onImageRemove,
             isDragging,
             dragProps
           }) => (
@@ -88,7 +98,7 @@ const EditPlacement = (props) => {
             <div className="upload__image-wrapper p-2">
               <Button variant="secondary"
                 style={isDragging ? { color: "red" } : null}
-                onClick={onImageUpload}
+                onClick={() => {if(imageList.length>0){ onImageUpdate(0)}else{ onImageUpload(); }}}
                 {...dragProps}
               >
               Upload image
