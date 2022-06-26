@@ -5,9 +5,15 @@ import EditPlacement from "./EditPlacement";
 import PlacementPreview from "./PlacementPreview";
 import { getTokenData } from "../../wnft/WnftActions";
 import { useWeb3ProviderInfo } from "../../contexts/Web3Context";
+import LoadingEsteroidsIcon from "../../svgs/LoadingEsteroidsIcon";
 
 const all = require('it-all')
 const { concat: uint8ArrayConcat } = require('uint8arrays/concat')
+
+
+const SearchLoading = (props) => {
+  return (<><LoadingEsteroidsIcon  /><span>Loading...</span></>)
+}
 
 
 
@@ -146,6 +152,7 @@ export default function KeyphraseView(props) {
    
     return (
 <div>
+  {!loaded && ( <div className="d-flex justify-content-center"><SearchLoading /></div> )}
   {loaded && (
 <>
   <div className="mb-4"><Link to="/">&#8592; Back</Link></div>
