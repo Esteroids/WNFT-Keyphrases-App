@@ -33,7 +33,7 @@ const PlacementView = (props) => {
   {props.tokenOwner==true && (<EditPlacement keyphraseRender={props.keyphraseRender} showEdit={props.showEdit} handleCloseEdit={props.handleCloseEdit} 
           changePlacementRenderInfo={props.changePlacementRenderInfo} ipfs={props.ipfs} keyphraseId={props.keyphraseId} setKeyphraseInfo={props.setKeyphraseInfo} />)}
 
-    <small>Placement</small>
+    <div><small>Placement</small> {isPlacementConfigured && (<a href={"https://nightly.esteroids.eth.limo/#/search?term=" + encodeURIComponent(props?.keyphraseInfo?.wnftKeyphrase)} target="_blank">see it live</a>)}</div>
     <div className="border border-secondary px-3 py-3 rounded">
         { isPlacementConfigured && 
         (
