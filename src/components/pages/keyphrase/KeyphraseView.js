@@ -43,10 +43,14 @@ const PlacementView = (props) => {
 </div>)
 }
 
+const OwnerAddress = (props) => {
+  return (<div className={"text-dark mx-1" + ((props.bold && "font-weight-bold") || "") }>{props.tokenData.owner}</div>)
+}
+
 const OwnerView = (props) => {
   return (
-<div className="my-2">
-    Owner {props.tokenData.owner}
+<div className="my-2 d-flex">
+    Owned by {(props.tokenOwner && (<><div className="text-success font-weight-bold mx-1">Me</div> (<OwnerAddress tokenData={props.tokenData} />)</>)) || (<OwnerAddress tokenData={props.tokenData} bold={true} />)} 
 </div>
   )
 }
@@ -145,10 +149,10 @@ export default function KeyphraseView(props) {
   {loaded && (
 <>
   <div className="mb-4"><Link to="/">&#8592; Back</Link></div>
-  <h3>WNFT Keypharse "{keyphraseInfo.wnftKeyphrase}"</h3>
+  <div className="h3 d-flex text-dark">WNFT Keypharse "<div className="font-weight-bold">{keyphraseInfo.wnftKeyphrase}</div>"</div>
   <PlacementView  handleShowEdit={handleShowEdit} tokenOwner={tokenOwner} keyphraseInfo={keyphraseInfo} keyphraseRender={keyphraseRender}
   changePlacementRenderInfo={changePlacementRenderInfo} ipfs={props.ipfs} showEdit={showEdit} handleCloseEdit={handleCloseEdit} keyphraseId={params.keyphraseId} setKeyphraseInfo={setKeyphraseInfo} />
-  <OwnerView tokenData={tokenData} />
+  <OwnerView tokenData={tokenData} tokenOwner={tokenOwner} />
   <KeyphraseDebugDetails tokenData={tokenData} keyphraseInfo={keyphraseInfo}/>
 </>
   )}

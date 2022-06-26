@@ -74,7 +74,7 @@ const EditPlacement = (props) => {
       </Modal.Header>
       <Modal.Body>
           <div>
-      <label htmlFor="placement-img-url" className="form-label">Image (width 318px)</label>
+      <label htmlFor="placement-img-url" className="form-label">Image (width {IMAGE_WIDTH}px, min height {IMAGE_HEIGHT_MIN}px)</label>
       <div className="input-group">
 
       <div className='d-flex flex-column'>
@@ -114,7 +114,7 @@ const EditPlacement = (props) => {
       <div className="input-group">
 
       <input type="text" className="form-control shadow-lg rounded" name="placement-link" 
-      id="placement-link" placeholder="link when clicked" value={placementLink}  onChange={onChangeLink} />
+      id="placement-link" placeholder="link when clicked (example: esteroids.eth.limo) or leave empty for no link" value={placementLink}  onChange={onChangeLink} />
       </div>
   </div></Modal.Body>
       <Modal.Footer>
