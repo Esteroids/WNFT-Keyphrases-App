@@ -6,6 +6,7 @@ import { useWeb3ProviderInfo } from '../contexts/Web3Context';
 import { wnftKeyphraseHash } from '../wnft/WnftHash';
 import CheckIcon from '../svgs/CheckIcon';
 import LoadingIcon from '../svgs/LoadingIcon';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -37,6 +38,15 @@ const UpdatingWnft = (props) => {
 
     const [updatingStage, setUpdatingStage] = useState("ipfs-adding")
     const web3ProviderInfo = useWeb3ProviderInfo()
+    let navigate = useNavigate();
+
+    const updateStageDone = () => {
+        setUpdatingStage('done')
+        if (props.newToken){
+            const wnftKeyphraseHashId = wnftKeyphraseHash(props.updateInfo.wnftKeyphrase);
+            navigate(`/congrats/${wnftKeyphraseHashId}`, { replace: true });
+        }
+    }
 
     useEffect(() => {
         if (props.show){
@@ -47,11 +57,11 @@ const UpdatingWnft = (props) => {
                 setUpdatingStage('wnft-updating')
                 if (props.newToken){
                     mintToken(web3ProviderInfo, wnftKeyphraseHashId, 'ipfs://' + cid.path, true, 1).then(() => {
-                        setUpdatingStage('done')
+                        updateStageDone()
                     })
                 }else{
                     setTokenURI(web3ProviderInfo, wnftKeyphraseHashId, 'ipfs://' + cid.path).then(() => {
-                        setUpdatingStage('done')
+                        updateStageDone()
                     })
                 }
                 

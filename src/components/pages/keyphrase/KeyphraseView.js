@@ -5,9 +5,15 @@ import EditPlacement from "./EditPlacement";
 import PlacementPreview from "./PlacementPreview";
 import { getTokenData } from "../../wnft/WnftActions";
 import { useWeb3ProviderInfo } from "../../contexts/Web3Context";
+import LoadingEsteroidsIcon from "../../svgs/LoadingEsteroidsIcon";
 
 const all = require('it-all')
 const { concat: uint8ArrayConcat } = require('uint8arrays/concat')
+
+
+const SearchLoading = (props) => {
+  return (<><LoadingEsteroidsIcon  /><span>Loading...</span></>)
+}
 
 
 
@@ -27,7 +33,7 @@ const PlacementView = (props) => {
   {props.tokenOwner==true && (<EditPlacement keyphraseRender={props.keyphraseRender} showEdit={props.showEdit} handleCloseEdit={props.handleCloseEdit} 
           changePlacementRenderInfo={props.changePlacementRenderInfo} ipfs={props.ipfs} keyphraseId={props.keyphraseId} setKeyphraseInfo={props.setKeyphraseInfo} />)}
 
-    <small>Placement</small>
+    <div><small>Placement</small> {isPlacementConfigured && (<a href={"https://nightly.esteroids.eth.limo/#/search?term=" + encodeURIComponent(props?.keyphraseInfo?.wnftKeyphrase)} className="mx-2 h5" target="_blank">see it live</a>)}</div>
     <div className="border border-secondary px-3 py-3 rounded">
         { isPlacementConfigured && 
         (
@@ -43,10 +49,14 @@ const PlacementView = (props) => {
 </div>)
 }
 
+const OwnerAddress = (props) => {
+  return (<div className={"text-dark mx-1" + ((props.bold && "font-weight-bold") || "") }>{props.tokenData.owner}</div>)
+}
+
 const OwnerView = (props) => {
   return (
-<div className="my-2">
-    Owner {props.tokenData.owner}
+<div className="my-2 d-flex">
+    Owned by {(props.tokenOwner && (<><div className="text-success font-weight-bold mx-1">Me</div> (<OwnerAddress tokenData={props.tokenData} />)</>)) || (<OwnerAddress tokenData={props.tokenData} bold={true} />)} 
 </div>
   )
 }
@@ -142,13 +152,14 @@ export default function KeyphraseView(props) {
    
     return (
 <div>
+  {!loaded && ( <div className="d-flex justify-content-center"><SearchLoading /></div> )}
   {loaded && (
 <>
   <div className="mb-4"><Link to="/">&#8592; Back</Link></div>
-  <h3>WNFT Keypharse "{keyphraseInfo.wnftKeyphrase}"</h3>
+  <div className="h3 d-flex text-dark">WNFT Keypharse "<div className="font-weight-bold">{keyphraseInfo.wnftKeyphrase}</div>"</div>
   <PlacementView  handleShowEdit={handleShowEdit} tokenOwner={tokenOwner} keyphraseInfo={keyphraseInfo} keyphraseRender={keyphraseRender}
   changePlacementRenderInfo={changePlacementRenderInfo} ipfs={props.ipfs} showEdit={showEdit} handleCloseEdit={handleCloseEdit} keyphraseId={params.keyphraseId} setKeyphraseInfo={setKeyphraseInfo} />
-  <OwnerView tokenData={tokenData} />
+  <OwnerView tokenData={tokenData} tokenOwner={tokenOwner} />
   <KeyphraseDebugDetails tokenData={tokenData} keyphraseInfo={keyphraseInfo}/>
 </>
   )}

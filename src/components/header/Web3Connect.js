@@ -2,7 +2,7 @@ import Torus from "@toruslabs/torus-embed";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import Web3Modal from "web3modal";
 import { ethers } from "ethers";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Fortmatic from "fortmatic";
 import Button from 'react-bootstrap/Button';
 import { useWeb3InfoDispatchContext } from "../contexts/Web3Context";
@@ -43,7 +43,7 @@ const providerOptions = {
 
 
 const web3Modal = new Web3Modal({
-    network: "mainnet", // optional
+    network: "goerli", // optional
     cacheProvider: true, // optional
     providerOptions // required
   });
@@ -67,7 +67,7 @@ const Web3Connect = () => {
 
     const setWeb3ProviderInfo = useWeb3InfoDispatchContext();
 
-    const clickConnect = async () => {
+    const connectWallet = async () => {
         if (isConnected) return;
         const instance = await web3Modal.connect();
 
@@ -86,7 +86,7 @@ const Web3Connect = () => {
         
         // Subscribe to provider connection
         instance.on("connect", (info) => {
-            console.log(info);
+            console.log("connect", info);
         });
         
         // Subscribe to provider disconnection
@@ -96,6 +96,7 @@ const Web3Connect = () => {
         const web3Provider = new ethers.providers.Web3Provider( instance );
         
         const [account] = await web3Provider.listAccounts();
+
         if (account){
             setWalletAddress(account);
             setWeb3ProviderInfo({provider: web3Provider, wallet: account, active: true})
@@ -105,9 +106,15 @@ const Web3Connect = () => {
         }
     }
 
+    useEffect(() => {
+        if (web3Modal.cachedProvider) {
+          connectWallet();
+        }
+      }, []);
+
     return (
 <div>
-    <Button onClick={clickConnect} variant=""  className={(!isConnected&& "btn-secondary-wnft") ||"btn-connected-wnft"}>
+    <Button onClick={connectWallet} variant=""  className={(!isConnected&& "btn-secondary-wnft") ||"btn-connected-wnft"}>
         {(!isConnected && "Connect" ) || (showWalletAddress(walletAddress) + " " + networkName) }
     </Button> 
     

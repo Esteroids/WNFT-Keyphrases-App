@@ -3,8 +3,10 @@ import Modal from 'react-bootstrap/Modal';
 import ImageUploading from "react-images-uploading";
 import { useState, useEffect } from 'react';
 import UpdatingWnft from '../../data/UpdatingWnft';
+import { getImageSize } from '../../utils/image';
 
-
+const IMAGE_WIDTH = 318
+const IMAGE_HEIGHT_MIN = 200
 
 const EditPlacement = (props) => {
 
@@ -12,6 +14,7 @@ const EditPlacement = (props) => {
     const [placementLink, setPlacementLink] = useState(props.keyphraseRender?.link || '');
     const [images, setImages] = useState([]);
     const [showUpdating, setShowUpdating] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
 
 
     const [updateInfo, setUpdateInfo] = useState(null);
@@ -24,6 +27,7 @@ const EditPlacement = (props) => {
 
       setUpdateInfo(null)
       setShowUpdating(false)
+      setErrorAlert('');
     }, [props.keyphraseId])
 
 
@@ -35,11 +39,23 @@ const EditPlacement = (props) => {
 
     const maxNumber = 1;
     const onImageChange = (imageList, addUpdateIndex) => {
+        console.log(imageList)
     // data for submit
         if (imageList.length){
-            setPlacementImage(imageList[0].data_url);
+            getImageSize(imageList[addUpdateIndex].file).then((resp) => {
+              if (resp.width == IMAGE_WIDTH && resp.height >= IMAGE_HEIGHT_MIN){
+                setPlacementImage(imageList[addUpdateIndex].data_url);
+                console.log(imageList[addUpdateIndex])
+                setImages(imageList);
+                setErrorAlert('');
+              }else{
+                console.error('Size is not valid', resp)
+                setErrorAlert('Uploaded image size is invalid, size must be: width ' + IMAGE_WIDTH + 'px, min height ' + IMAGE_HEIGHT_MIN + 'px')
+              }
+            })
+            
         }
-        setImages(imageList);
+        
     };
 
     const onSave = () => {
@@ -62,14 +78,14 @@ const EditPlacement = (props) => {
       </Modal.Header>
       <Modal.Body>
           <div>
-      <label htmlFor="placement-img-url" className="form-label">Image</label>
+      <label htmlFor="placement-img-url" className="form-label">Image (width {IMAGE_WIDTH}px, min height {IMAGE_HEIGHT_MIN}px)</label>
       <div className="input-group">
 
       <div className='d-flex flex-column'>
       {placementImage && (<img src={placementImage} className="WNFT-placement-preview-img border" />)}
       {!placementImage && ("No image")}
       <ImageUploading
-          multiple
+          multiple={false}
           value={images}
           onChange={onImageChange}
           maxNumber={maxNumber}
@@ -78,17 +94,16 @@ const EditPlacement = (props) => {
           {({
             imageList,
             onImageUpload,
-            onImageRemoveAll,
             onImageUpdate,
-            onImageRemove,
             isDragging,
             dragProps
           }) => (
             // write your building UI
             <div className="upload__image-wrapper p-2">
+              {errorAlert && (<div className='text-danger h3 font-weight-bold'>{errorAlert}</div>)}
               <Button variant="secondary"
                 style={isDragging ? { color: "red" } : null}
-                onClick={onImageUpload}
+                onClick={() => {if(imageList.length>0){ onImageUpdate(0)}else{ onImageUpload(); }}}
                 {...dragProps}
               >
               Upload image
@@ -104,7 +119,7 @@ const EditPlacement = (props) => {
       <div className="input-group">
 
       <input type="text" className="form-control shadow-lg rounded" name="placement-link" 
-      id="placement-link" placeholder="link when clicked" value={placementLink}  onChange={onChangeLink} />
+      id="placement-link" placeholder="link when clicked (example: esteroids.eth.limo) or leave empty for no link" value={placementLink}  onChange={onChangeLink} />
       </div>
   </div></Modal.Body>
       <Modal.Footer>

@@ -1,12 +1,30 @@
+import { getValidUrl } from "../../utils/url"
 
-const placementPreviewImg = require("../../../images/placement/preview.jpg")
+const ImagePreview = (props) =>{
+    return (
+<img className="card-img WNFT-placement-preview-img" src={props.imgSrc} alt="" />
+)
+}
+
+
+const LinkedPreview = (props) => {
+
+    const cleanedUrl = getValidUrl(props.link)
+    return (
+<a href={cleanedUrl} target="_blank">
+    <ImagePreview imgSrc={props.imgSrc} />
+</a>
+    )
+}
 
 const PlacementPreview = (props) => {
+
+    const previewType = (props.keyphraseRender.link && 'LinkedPreview') || 'ImagePreview'
+
     return (
 <div className="WNFT-placement-preview d-flex flex-column justify-content-center align-items-center">
-    <a href={props.keyphraseRender.link} target="_blank">
-        <img className="card-img WNFT-placement-preview-img" src={props.keyphraseRender.imgSrc} alt="" />
-    </a>
+    {previewType==='LinkedPreview' && (<LinkedPreview imgSrc={props.keyphraseRender.imgSrc} link={props.keyphraseRender.link} />)}
+    {previewType==='ImagePreview' && (<ImagePreview imgSrc={props.keyphraseRender.imgSrc}  />)}
 </div>
     )
 }

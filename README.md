@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+<h1 align="center"> Esteroids - WNFT Center </h1> <br>
+<p align="center">
+  <a href="https://keyphrase.esteroids.eth.limo/">
+    <img alt="Esteroids" title="Esteroids - WNFT Center" src="https://i.imgur.com/m4FxRku.png" width="150">
+  </a>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  A WNFT keyphrase center for Esteroids
+</p>
 
-## Available Scripts
+## Table of contents
+* [Introduction](#introduction)
+* [Web App](#web-app)
+* [Dependencies](#dependencies)
+* [Installation](#installation)
+* [Getting help](#getting-help)
+* [Getting involved](#getting-involved)
+* [License](#license)
+* [Credits and references](#credits-and-references)
 
-In the project directory, you can run:
+## Introduction
+WNFT is an NFT smart contract of that owns a .eth website. 
 
-### `npm start`
+This gives the NFT a strong connection to the .eth website. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+In Esteroids keyphrases case, each token in the WNFT contract is associated to a keyphrase. Holding a token that is associated to some keyphrase, gives the owner control of a container in the search results page for this keyphrase in [esteroids.eth](https://esteroids.eth.limo). 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+In the WNFT keyphrase Center people can rent keyphrases and set the content of the containers associated to the keyphrases they hold.
 
-### `npm test`
+## Web App
+This repository contains the source code of the web app that is the basis of [keyphrase.esteroids.eth](https://keyphrase.esteroids.eth.limo).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+A WNFT keyphrase center for Esteroids is a React App. It has client side only, does not rely on any backend, and is meant for users to managed their keyphrases in a complete autonomous manner.
 
-### `npm run build`
+See live version in [keyphrase.esteroids.eth.limo](https://keyphraseesteroids.eth.limo)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Dependencies
+To build Esteroids Web App you need to have installed on your machine:
+- Node.js v14.16.1 
+- Npm 6.13.7
+- Yarn v1.22.5
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Installation
+To install all the dependencies run:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```yarn```
 
-### `npm run eject`
+Then you can run the webapp locally with:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```yarn start``` 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+or build a static version of it with: 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```yarn build```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Getting help
+If you have questions, concerns, bug reports, etc, please open an issue in this repository's Issue Tracker, send us an email to contact@esteroids.xyz or come to our [Discord](https://discord.gg/9c2EWzjFzY).
 
-## Learn More
+## Getting involved
+Esteroids is a project from the community by the community, and as such we encourage you to be involved in everything we release. You can either contact us in email (contact@esteroids.xyz), [Twitter](https://twitter.com/e_steroids) or [Discord](https://discord.gg/9c2EWzjFzY), or simply form the project, add features, and do a PR for us to look at it.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+----
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## License
+The code in this repository is published under MIT license. The content in this repository is published under CC-BY-SA 3.0 license.
 
-### Code Splitting
+----
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Credits and references
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Esteroids was created by [Tomer Leicht](https://github.com/tomlightning) and [Eyal Ron](https://github.com/eyalron33).
