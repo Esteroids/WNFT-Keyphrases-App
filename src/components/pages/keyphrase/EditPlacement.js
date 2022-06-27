@@ -14,6 +14,7 @@ const EditPlacement = (props) => {
     const [placementLink, setPlacementLink] = useState(props.keyphraseRender?.link || '');
     const [images, setImages] = useState([]);
     const [showUpdating, setShowUpdating] = useState(false);
+    const [errorAlert, setErrorAlert] = useState('');
 
 
     const [updateInfo, setUpdateInfo] = useState(null);
@@ -26,6 +27,7 @@ const EditPlacement = (props) => {
 
       setUpdateInfo(null)
       setShowUpdating(false)
+      setErrorAlert('');
     }, [props.keyphraseId])
 
 
@@ -45,8 +47,10 @@ const EditPlacement = (props) => {
                 setPlacementImage(imageList[addUpdateIndex].data_url);
                 console.log(imageList[addUpdateIndex])
                 setImages(imageList);
+                setErrorAlert('');
               }else{
                 console.error('Size is not valid', resp)
+                setErrorAlert('Uploaded image size is invalid, size must be: width ' + IMAGE_WIDTH + 'px, min height ' + IMAGE_HEIGHT_MIN + 'px')
               }
             })
             
@@ -96,6 +100,7 @@ const EditPlacement = (props) => {
           }) => (
             // write your building UI
             <div className="upload__image-wrapper p-2">
+              {errorAlert && (<div className='text-danger h3 font-weight-bold'>{errorAlert}</div>)}
               <Button variant="secondary"
                 style={isDragging ? { color: "red" } : null}
                 onClick={() => {if(imageList.length>0){ onImageUpdate(0)}else{ onImageUpload(); }}}
